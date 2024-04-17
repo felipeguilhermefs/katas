@@ -1,11 +1,38 @@
-local fibonacci = require "fibonacci"
+lu = require "luaunit"
+assertEquals = lu.assertEquals
 
-assert(fibonacci(0) == 1, "Fib 0 should be 1")
-assert(fibonacci(1) == 1, "Fib 1 should be 1")
-assert(fibonacci(2) == 2, "Fib 2 should be 2")
-assert(fibonacci(3) == 3, "Fib 3 should be 3")
-assert(fibonacci(4) == 5, "Fib 4 should be 5")
-assert(fibonacci(5) == 8, "Fib 5 should be 8")
-assert(fibonacci(6) == 13, "Fib 6 should be 13")
-assert(fibonacci(7) == 21, "Fib 7 should be 21")
-assert(fibonacci(40) == 165580141, "Fib 40 should be 165580141")
+fibonacci = require "fibonacci"
+
+function test_when0_return1()
+  assertEquals(fibonacci(0), 1)
+end
+
+function test_when1_return1()
+  assertEquals(fibonacci(1), 1)
+end
+
+function test_when2_return2()
+  assertEquals(fibonacci(2), 2)
+end
+
+function test_when3_return3()
+  assertEquals(fibonacci(3), 3)
+end
+
+function test_when4_return5()
+  assertEquals(fibonacci(4), 5)
+end
+
+function test_when5_return8()
+  assertEquals(fibonacci(5), 8)
+end
+
+function test_when7_return21()
+  assertEquals(fibonacci(7), 21)
+end
+
+function test_when100_return1298777728820984005()
+  assertEquals(fibonacci(100), 1298777728820984005)
+end
+
+os.exit(lu.LuaUnit.run())

@@ -1,16 +1,35 @@
-local cn = require "combinednumbers"
-local greatest = cn.greatest
+lu = require "luaunit"
+assertEquals = lu.assertEquals
 
-assert(greatest({1}) == "1", "single element should return itself")
+cn = require "combinednumbers"
+greatest = cn.greatest
 
-assert(greatest({8, 2, 1, 9}) == "9821", "multiple elements with single digit")
+function test_singleElement()
+  assertEquals(greatest({1}), "1")
+end
 
-assert(greatest({53, 2, 10, 9}) == "953210", "multiple elements 1 or 2 digits")
+function test_multipleElementsWithSingleDigit()
+  assertEquals(greatest({8, 2, 1, 9}), "9821")
+end
 
-assert(greatest({50, 5, 56}) == "56550", "multiple elements 2 digits")
+function test_multipleElementsWith1Or2Digits()
+  assertEquals(greatest({53, 2, 10, 9}), "953210")
+end
 
-assert(greatest({420, 42, 423, 4}) == "442342420", "multiple elements multiple digits")
+function test_multipleElements2Digits()
+  assertEquals(greatest({50, 5, 56}), "56550")
+end
 
-assert(greatest({6, 6, 6}) == "666", "repeated elements")
+function test_multipleElementsMultipleDigits()
+  assertEquals(greatest({420, 42, 423, 4}), "442342420")
+end
 
-assert(greatest({7, 77, 777}) == "777777", "multiple elements same digit")
+function test_repeatedElements()
+  assertEquals(greatest({6, 6, 6}), "666")
+end
+
+function test_multipleElementsSameDigit()
+  assertEquals(greatest({7, 77, 777}), "777777")
+end
+
+os.exit(lu.LuaUnit.run())

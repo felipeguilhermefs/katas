@@ -1,39 +1,60 @@
-local roman = require "roman"
+lu = require "luaunit"
+assertEquals = lu.assertEquals
 
-assert(roman(1) == "I", "should convert with symbol I")
-assert(roman(2) == "II", "should convert with symbol I")
-assert(roman(3) == "III", "should convert with symbol I")
+roman = require "roman"
 
-assert(roman(4) == "IV", "should convert with symbol V")
-assert(roman(5) == "V", "should convert with symbol V")
-assert(roman(6) == "VI", "should convert with symbol V")
-assert(roman(8) == "VIII", "should convert with symbol V")
+function test_shouldConvertWithSymbol_I()
+  assertEquals(roman(1), "I")
+  assertEquals(roman(2), "II")
+  assertEquals(roman(3), "III")
+end
 
-assert(roman(9) == "IX", "should convert with symbol X")
-assert(roman(10) == "X", "should convert with symbol X")
-assert(roman(14) == "XIV", "should convert with symbol X")
-assert(roman(28) == "XXVIII", "should convert with symbol X")
-assert(roman(39) == "XXXIX", "should convert with symbol X")
+function test_shouldConvertWithSymbol_V()
+  assertEquals(roman(4), "IV")
+  assertEquals(roman(5), "V")
+  assertEquals(roman(6), "VI")
+  assertEquals(roman(8), "VIII")
+end
 
-assert(roman(43) == "XLIII", "should convert with symbol L")
-assert(roman(50) == "L", "should convert with symbol L")
-assert(roman(75) == "LXXV", "should convert with symbol L")
+function test_shouldConvertWithSymbol_X()
+  assertEquals(roman(9), "IX")
+  assertEquals(roman(10), "X")
+  assertEquals(roman(14), "XIV")
+  assertEquals(roman(28), "XXVIII")
+  assertEquals(roman(39), "XXXIX")
+end
 
-assert(roman(93) == "XCIII", "should convert with symbol C")
-assert(roman(100) == "C", "should convert with symbol C")
-assert(roman(255) == "CCLV", "should convert with symbol C")
-assert(roman(399) == "CCCXCIX", "should convert with symbol C")
+function test_shouldConvertWithSymbol_L()
+  assertEquals(roman(43), "XLIII")
+  assertEquals(roman(50), "L")
+  assertEquals(roman(75), "LXXV")
+end
 
-assert(roman(403) == "CDIII", "should convert with symbol D")
-assert(roman(500) == "D", "should convert with symbol D")
-assert(roman(701) == "DCCI", "should convert with symbol D")
+function test_shouldConvertWithSymbol_C()
+  assertEquals(roman(93), "XCIII")
+  assertEquals(roman(100), "C")
+  assertEquals(roman(255), "CCLV")
+  assertEquals(roman(399), "CCCXCIX")
+end
 
-assert(roman(903) == "CMIII", "should convert with symbol M")
-assert(roman(1000) == "M", "should convert with symbol M")
-assert(roman(2601) == "MMDCI", "should convert with symbol M")
-assert(roman(3856) == "MMMDCCCLVI", "should convert with symbol M")
-assert(roman(4000) == "MMMM", "should convert with symbol M")
+function test_shouldConvertWithSymbol_D()
+  assertEquals(roman(403), "CDIII")
+  assertEquals(roman(500), "D")
+  assertEquals(roman(701), "DCCI")
+end
 
-assert(roman(0) == "", "should be empty when less than 1")
-assert(roman(-1) == "", "should be empty when less than 1")
-assert(roman(-35) == "", "should be empty when less than 1")
+function test_shouldConvertWithSymbol_M()
+  assertEquals(roman(903), "CMIII")
+  assertEquals(roman(1000), "M")
+  assertEquals(roman(2601), "MMDCI")
+  assertEquals(roman(3856), "MMMDCCCLVI")
+  assertEquals(roman(4000), "MMMM")
+end
+
+function test_when0OrNegative_shouldBeEmpty()
+  assertEquals(roman(0), "")
+  assertEquals(roman(-1), "")
+  assertEquals(roman(-35), "")
+end
+
+os.exit(lu.LuaUnit.run())

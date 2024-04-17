@@ -1,30 +1,47 @@
-local pn = require "phonenumbers"
-local is_consistent = pn.is_consistent
+lu = require "luaunit"
+assertTrue = lu.assertTrue
+assertFalse = lu.assertFalse
 
-assert(is_consistent({}), "empty should be consistent")
+pn = require "phonenumbers"
+is_consistent = pn.is_consistent
 
-assert(is_consistent({
-  ["Bob"] = "91198766"
-}), "single entry should be consistent")
+function test_empty_isConsistent()
+  assertTrue(is_consistent({}))
+end
 
+function test_singleEntry_isConsistent()
+  assertTrue(is_consistent({
+    ["Bob"] = "91198766"
+  }))
+end
 
-assert(not is_consistent({
-  ["Bob"] = "91198766",
-  ["Pizza"] = "876",
-  ["Emergency"] = "911",
-}), "when entry prefixes another should be inconsistent")
+function test_entryPrefixesAnother_notConsistent()
+  assertFalse(is_consistent({
+    ["Bob"] = "91198766",
+    ["Pizza"] = "876",
+    ["Emergency"] = "911",
+  }))
+end
 
-assert(is_consistent({
-  ["Bob"] = "91198766",
-  ["Pizza"] = "876",
-}), "when entry is contained by another should be consistent")
+function test_entryIsContainedByAnother_isConsistent()
+  assertTrue(is_consistent({
+    ["Bob"] = "91198766",
+    ["Pizza"] = "876",
+  }))
+end
 
-assert(not is_consistent({
-  ["Bob"] = "91198766",
-  ["Tob"] = "91198766",
-}), "when entry duplicates another should be inconsistent")
+function test_entryDuplicatesAnother_notConsistent()
+  assertFalse(is_consistent({
+    ["Bob"] = "91198766",
+    ["Tob"] = "91198766",
+  }))
+end
 
-assert(is_consistent({
-  ["Bob"] = "91198766",
-  ["Tob"] = "91198765",
-}), "when entries have have partially the same prefix should be consistent")
+function test_entriesHavePartiallySamePrefix_isConsistent()
+  assertTrue(is_consistent({
+    ["Bob"] = "91198766",
+    ["Tob"] = "91198765",
+  }))
+end
+
+os.exit(lu.LuaUnit.run())
