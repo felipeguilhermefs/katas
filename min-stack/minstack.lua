@@ -1,22 +1,4 @@
-local function stack()
-	local s = {}
-
-	s.push = function(item)
-		table.insert(s, item)
-	end
-
-	s.pop = function()
-		if #s > 0 then
-			return table.remove(s, #s)
-		end
-	end
-
-	s.top = function()
-		return s[#s]
-	end
-
-	return s
-end
+local stack = require("ff.stack")
 
 local function minstack()
 	local ms = {
