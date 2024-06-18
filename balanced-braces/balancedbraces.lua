@@ -1,4 +1,4 @@
-local stack = require("ff.stack")
+local Stack = require("ff.stack")
 
 local symbols = {
 	["("] = ")",
@@ -22,7 +22,7 @@ end
 local balancedbraces = {}
 
 function balancedbraces.is_balanced(input)
-	expected = stack()
+	local expected = Stack()
 
 	for char in input:gmatch(".") do
 		local closing = symbols.to_closing(char)

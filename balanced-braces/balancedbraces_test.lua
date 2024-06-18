@@ -1,72 +1,67 @@
-lu = require "luaunit"
-assertTrue = lu.assertTrue
-assertFalse = lu.assertFalse
+local lu = require("luaunit")
+local bb = require("balancedbraces")
 
-bb = require "balancedbraces"
-is_balanced = bb.is_balanced
-
-function test_singleOpenAndClose_isBalanced()
-  assertTrue(is_balanced("()"))
-  assertTrue(is_balanced("[]"))
-  assertTrue(is_balanced("{}"))
+function Test_singleOpenAndClose_isBalanced()
+	lu.assertTrue(bb.is_balanced("()"))
+	lu.assertTrue(bb.is_balanced("[]"))
+	lu.assertTrue(bb.is_balanced("{}"))
 end
 
-function test_nestedOpenAndCloseSameChar_isBalanced()
-  assertTrue(is_balanced("(())"))
-  assertTrue(is_balanced("[[]]"))
-  assertTrue(is_balanced("{{}}"))
+function Test_nestedOpenAndCloseSameChar_isBalanced()
+	lu.assertTrue(bb.is_balanced("(())"))
+	lu.assertTrue(bb.is_balanced("[[]]"))
+	lu.assertTrue(bb.is_balanced("{{}}"))
 end
 
-function test_nestedOpenAndClose_isBalanced()
-  assertTrue(is_balanced("({[]})"))
-  assertTrue(is_balanced("[{()}]"))
-  assertTrue(is_balanced("{([])}"))
+function Test_nestedOpenAndClose_isBalanced()
+	lu.assertTrue(bb.is_balanced("({[]})"))
+	lu.assertTrue(bb.is_balanced("[{()}]"))
+	lu.assertTrue(bb.is_balanced("{([])}"))
 end
 
-function test_openAndCloseWithWeirdChar_isBalanced()
-  assertTrue(is_balanced("(a)"))
-  assertTrue(is_balanced("b[]"))
-  assertTrue(is_balanced("{}c"))
+function Test_openAndCloseWithWeirdChar_isBalanced()
+	lu.assertTrue(bb.is_balanced("(a)"))
+	lu.assertTrue(bb.is_balanced("b[]"))
+	lu.assertTrue(bb.is_balanced("{}c"))
 end
 
-function test_multipleNestedOpenAndClose_isBalanced()
-  assertTrue(is_balanced("{()}[[{}]]"))
+function Test_multipleNestedOpenAndClose_isBalanced()
+	lu.assertTrue(bb.is_balanced("{()}[[{}]]"))
 end
 
-function test_noOpenOrClose_isBalanced()
-  assertTrue(is_balanced(""))
-  assertTrue(is_balanced("a"))
-  assertTrue(is_balanced("<>"))
+function Test_noOpenOrClose_isBalanced()
+	lu.assertTrue(bb.is_balanced(""))
+	lu.assertTrue(bb.is_balanced("a"))
+	lu.assertTrue(bb.is_balanced("<>"))
 end
 
-function test_singleChar_notBalanced()
-  assertFalse(is_balanced("["))
-  assertFalse(is_balanced("{"))
-  assertFalse(is_balanced("("))
-  assertFalse(is_balanced("]"))
-  assertFalse(is_balanced("}"))
-  assertFalse(is_balanced(")"))
+function Test_singleChar_notBalanced()
+	lu.assertFalse(bb.is_balanced("["))
+	lu.assertFalse(bb.is_balanced("{"))
+	lu.assertFalse(bb.is_balanced("("))
+	lu.assertFalse(bb.is_balanced("]"))
+	lu.assertFalse(bb.is_balanced("}"))
+	lu.assertFalse(bb.is_balanced(")"))
 end
 
-function test_doubleClose_notBalanced()
-  assertFalse(is_balanced("))"))
-  assertFalse(is_balanced("]]"))
-  assertFalse(is_balanced("}}"))
+function Test_doubleClose_notBalanced()
+	lu.assertFalse(bb.is_balanced("))"))
+	lu.assertFalse(bb.is_balanced("]]"))
+	lu.assertFalse(bb.is_balanced("}}"))
 end
 
-function test_doubleOpen_notBalanced()
-  assertFalse(is_balanced("(("))
-  assertFalse(is_balanced("[["))
-  assertFalse(is_balanced("{{"))
+function Test_doubleOpen_notBalanced()
+	lu.assertFalse(bb.is_balanced("(("))
+	lu.assertFalse(bb.is_balanced("[["))
+	lu.assertFalse(bb.is_balanced("{{"))
 end
 
-function test_openAndCloseWithDifferentSymbols_notBalanced()
-  assertFalse(is_balanced("[}"))
-  assertFalse(is_balanced("(]"))
-  assertFalse(is_balanced("{)"))
-  assertFalse(is_balanced("[{]}"))
-  assertFalse(is_balanced("{(])"))
+function Test_openAndCloseWithDifferentSymbols_notBalanced()
+	lu.assertFalse(bb.is_balanced("[}"))
+	lu.assertFalse(bb.is_balanced("(]"))
+	lu.assertFalse(bb.is_balanced("{)"))
+	lu.assertFalse(bb.is_balanced("[{]}"))
+	lu.assertFalse(bb.is_balanced("{(])"))
 end
 
 os.exit(lu.LuaUnit.run())
-
