@@ -1,25 +1,21 @@
+local min = require("ff.min")
+local max = require("ff.max")
+
 local function bucketsort(arr)
 	if #arr == 0 then
 		return
 	end
 
+	local low = min(table.unpack(arr))
+	local high = max(table.unpack(arr))
+
 	local counter = {}
-	local min
-	local max
 	for i = 1, #arr do
-		if not min or arr[i] < min then
-			min = arr[i]
-		end
-
-		if not max or arr[i] > max then
-			max = arr[i]
-		end
-
 		counter[arr[i]] = (counter[arr[i]] or 0) + 1
 	end
 
 	local j = 1
-	for i = min, max do
+	for i = low, high do
 		while (counter[i] or 0) > 0 do
 			arr[j] = i
 			j = j + 1
