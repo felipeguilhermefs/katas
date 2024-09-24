@@ -11,7 +11,7 @@ symbols.to_closing = function(char)
 end
 
 symbols.is_close = function(char)
-	for o, c in pairs(symbols) do
+	for _, c in pairs(symbols) do
 		if char == c then
 			return true
 		end
@@ -22,22 +22,22 @@ end
 local balancedbraces = {}
 
 function balancedbraces.is_balanced(input)
-	local expected = Stack()
+	local expected = Stack.new()
 
 	for char in input:gmatch(".") do
 		local closing = symbols.to_closing(char)
 		if closing then
-			expected.push(closing)
+			expected:push(closing)
 		end
 
 		if symbols.is_close(char) then
-			if expected.pop() ~= char then
+			if expected:pop() ~= char then
 				return false
 			end
 		end
 	end
 
-	return expected.empty()
+	return expected:empty()
 end
 
 return balancedbraces
