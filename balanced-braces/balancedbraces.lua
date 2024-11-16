@@ -1,4 +1,4 @@
-local Stack = require("ff.stack")
+local Stack = require("ff.collections.stack")
 
 local symbols = {
 	["("] = ")",

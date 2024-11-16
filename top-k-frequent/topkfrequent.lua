@@ -37,7 +37,7 @@ local function topkfrequent(arr, k)
 	end
 
 	local heap = priorityQueue()
-	for num, count in pairs(counter._entries) do
+	for num, count in pairs(counter) do
 		heap:push({ priority = count, value = num })
 	end
 
